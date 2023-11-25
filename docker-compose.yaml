@@ -7,7 +7,7 @@ services:
       target: build_hadoop
     hostname: namenode
 
-    #    command: ["hdfs", "namenode", "-format", "-force"]
+#    command: ["hdfs", "namenode", "-format", "-force"]
     command: [ "hdfs", "namenode" ]
     env_file:
       - ./hadoop.env
@@ -61,7 +61,7 @@ services:
       - resourcemanager:/tmp/hadoop-hadoop
       - ./hadoop_conf/etc:/opt/hadoop/etc
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9865"
+      SERVICE_PRECONDITION: "namenode:9870 datanode1:9864 datanode2:9865"
 
   nodemanager1:
     build:
@@ -79,7 +79,7 @@ services:
       - nodemanager1:/tmp/hadoop-hadoop
       - ./hadoop_conf/etc:/opt/hadoop/etc
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9865 resourcemanager:8088"
+      SERVICE_PRECONDITION: "namenode:9870 datanode1:9864 datanode2:9865 resourcemanager:8088"
 
 
   jupyter:
