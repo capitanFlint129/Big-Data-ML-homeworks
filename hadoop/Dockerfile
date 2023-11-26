@@ -41,8 +41,6 @@ ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
 
 FROM build_hadoop_base AS build_hadoop
 
-FROM build_hadoop AS build_hadoop_datanode
-
 WORKDIR /opt
 
 RUN pip3 install nltk
