@@ -26,6 +26,8 @@ RUN ln -sf /opt/hadoop-3.3.6 /opt/hadoop
 RUN apt-get update -y \
     && apt-get install -y python3-pip
 
+RUN pip3 install pyspark numpy pandas pyarrow scikit-learn
+
 RUN mkdir -p /tmp/hadoop-hadoop
 
 WORKDIR /opt/hadoop
@@ -42,8 +44,6 @@ ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
 FROM build_hadoop_base AS build_hadoop
 
 WORKDIR /opt
-
-RUN pip3 install nltk
 
 FROM build_hadoop_base AS hive_hadoop_base
 ENV HIVE_HOME /opt/hive

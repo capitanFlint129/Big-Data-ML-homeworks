@@ -7,7 +7,7 @@ services:
       target: build_hadoop
     hostname: namenode
 
-    #    command: ["hdfs", "namenode", "-format", "-force"]
+#    command: ["hdfs", "namenode", "-format", "-force"]
     command: [ "hdfs", "namenode" ]
     env_file:
       - ./hadoop.env
@@ -39,26 +39,26 @@ services:
           cpus: '0.50'
           memory: 512M
 
-  datanode2:
-    build:
-      context: hadoop/.
-      target: build_hadoop
-    hostname: datanode2
-    command: [ "hdfs", "datanode" ]
-    env_file:
-      - ./hadoop.env
-    ports:
-      - 9865:9865
-    volumes:
-      - hdfs2:/tmp/hadoop-hadoop
-      - ./hadoop_conf/etc:/opt/hadoop/etc
-    environment:
-      SERVICE_PRECONDITION: "namenode:9870"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
+#  datanode2:
+#    build:
+#      context: hadoop/.
+#      target: build_hadoop
+#    hostname: datanode2
+#    command: [ "hdfs", "datanode" ]
+#    env_file:
+#      - ./hadoop.env
+#    ports:
+#      - 9865:9865
+#    volumes:
+#      - hdfs2:/tmp/hadoop-hadoop
+#      - ./hadoop_conf/etc:/opt/hadoop/etc
+#    environment:
+#      SERVICE_PRECONDITION: "namenode:9870"
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '0.50'
+#          memory: 512M
 
   resourcemanager:
     build:
