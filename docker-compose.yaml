@@ -17,7 +17,9 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
   taskmanager:
-    image: pyflink/pyflink:1.16.0-scala_2.12
+    build:
+      context: flink/.
+      target: flink
     volumes:
       - ./flink_dir:/opt/pyflink
     expose:
