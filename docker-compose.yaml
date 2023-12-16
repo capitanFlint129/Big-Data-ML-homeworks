@@ -6,7 +6,7 @@ services:
       context: flink/.
       target: flink
     volumes:
-      - ./kafka_scripts:/opt/pyflink
+      - ./flink_dir:/opt/pyflink
     hostname: "jobmanager"
     expose:
       - "6123"
@@ -19,7 +19,7 @@ services:
   taskmanager:
     image: pyflink/pyflink:1.16.0-scala_2.12
     volumes:
-      - ./kafka_scripts:/opt/pyflink
+      - ./flink_dir:/opt/pyflink
     expose:
       - "6121"
       - "6122"
