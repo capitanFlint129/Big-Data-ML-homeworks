@@ -29,7 +29,11 @@ bash run_producer_and_consumer.sh
 
 # Чекпоинт в hdfs
 
-Команда запуска flink-джобы становится другой:
+Команда запуска flink-джобы становится другой, поскольку я решил запускать
+flink на yarn, дело в том, что при запуске без yarn все время возникала
+ошибка "Hadoop is not in the classpath/dependencies", и я решил что запуск
+через yarn - наиболее удачное решение данной проблемы в рамках выполнения
+задания:
 
 ```bash
 docker compose exec jobmanager bash -c "export HADOOP_CLASSPATH=\`hadoop classpath\` && ./bin/yarn-session.sh --detached && ./bin/flink run -py /opt/pyflink/device_job.py -d"
