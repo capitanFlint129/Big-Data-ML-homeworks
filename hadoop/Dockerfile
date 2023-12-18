@@ -1,7 +1,7 @@
-FROM ubuntu:latest AS build_base
+FROM python:3.7.14 AS build_base
 
 RUN apt-get update -y \
-    && apt-get install -y openjdk-8-jdk \
+    && apt-get install -y openjdk-11-jdk \
     && apt-get install -y lsb-release \
     && apt-get install -y net-tools \
     && apt-get install -y curl
@@ -30,7 +30,7 @@ RUN mkdir -p /tmp/hadoop-hadoop
 
 WORKDIR /opt/hadoop
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 ENV HADOOP_HOME /opt/hadoop
 ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
@@ -43,7 +43,8 @@ FROM build_hadoop_base AS build_hadoop
 
 WORKDIR /opt
 
-RUN pip3 install nltk
+RUN apt-get install -y python-is-python3
+RUN pip3 install apache-flink
 
 FROM build_hadoop_base AS hive_hadoop_base
 ENV HIVE_HOME /opt/hive

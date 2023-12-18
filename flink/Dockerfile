@@ -1,25 +1,3 @@
-###############################################################################
-#  Licensed to the Apache Software Foundation (ASF) under one
-#  or more contributor license agreements.  See the NOTICE file
-#  distributed with this work for additional information
-#  regarding copyright ownership.  The ASF licenses this file
-#  to you under the Apache License, Version 2.0 (the
-#  "License"); you may not use this file except in compliance
-#  with the License.  You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS,
-#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#  See the License for the specific language governing permissions and
-# limitations under the License.
-###############################################################################
-
-###############################################################################
-# Build PyFlink Playground Image
-###############################################################################
-
 FROM apache/flink:1.16.0-scala_2.12-java8 AS flink
 ARG FLINK_VERSION=1.16.0
 
@@ -54,3 +32,44 @@ RUN wget -P /opt/flink/lib/ https://repo.maven.apache.org/maven2/org/apache/flin
 RUN echo "taskmanager.memory.jvm-metaspace.size: 512m" >> /opt/flink/conf/flink-conf.yaml;
 
 WORKDIR /opt/flink
+
+
+FROM flink AS flink_hadoop
+
+RUN apt-get update -y \
+    && apt-get install -y openjdk-11-jdk \
+    && apt-get install -y lsb-release \
+    && apt-get install -y net-tools \
+    && apt-get install -y curl
+
+RUN DEBIAN_FRONTEND="noninteractive" \
+    TZ="Europe/Moscow" \
+    apt-get install -y tzdata
+
+RUN ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
+    && dpkg-reconfigure --frontend noninteractive tzdata
+
+WORKDIR /opt
+
+RUN curl -o hadoop-3.3.6.tar.gz https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
+RUN tar -xzf hadoop-3.3.6.tar.gz -C /opt
+RUN rm hadoop-3.3.6.tar.gz
+RUN ln -sf /opt/hadoop-3.3.6 /opt/hadoop
+
+RUN apt-get update -y \
+    && apt-get install -y python3-pip
+
+RUN mkdir -p /tmp/hadoop-hadoop
+
+WORKDIR /opt/hadoop
+
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+ENV HADOOP_HOME /opt/hadoop
+ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+# fix WARN NativeCodeLoader: Unable to load native-hadoop library for your platform...
+ENV LD_LIBRARY_PATH=$HADOOP_HOME/lib/native
+ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
+
+WORKDIR /opt/flink
+
