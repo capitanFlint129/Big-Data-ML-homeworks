@@ -1,4 +1,4 @@
-Основной файл решения: [device_job_windows.py](device_job_windows.py)
+Основной файл решения: [device_job_windows.py](../device_job_windows.py)
 
 # Подготовка
 

@@ -1,5 +1,5 @@
 Основной файл
-решения: [consumer_with_decorator.py](consumer_with_decorator.py)
+решения: [consumer_with_decorator.py](../consumer_with_decorator.py)
 
 # Подготовка
 

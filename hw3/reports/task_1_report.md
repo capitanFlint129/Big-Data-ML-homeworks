@@ -1,4 +1,4 @@
-Основной файл решения: [device_job.py](device_job.py)
+Основной файл решения: [device_job.py](../device_job.py)
 
 # Подготовка
 
@@ -27,9 +27,14 @@ bash run_producer_and_consumer.sh
 ```
 
 Скриншот файлов с чекпоинтом:
-![task_1_local_dir_screenshot.png](screens/task_1_local_dir_screenshot.png)
+![task_1_local_dir_screenshot.png](../screens/task_1_local_dir_screenshot.png)
 
 # Чекпоинт в hdfs
+
+Для этой части задания docker compose нужно запускать с hdfs:
+```bash
+docker compose --file docker-compose_hdfs.yaml up
+```
 
 Команда запуска flink-джобы становится другой, поскольку я решил запускать
 flink на yarn, дело в том, что при запуске без yarn все время возникала
