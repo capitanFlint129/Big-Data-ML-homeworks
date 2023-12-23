@@ -1,5 +1,8 @@
 Основной файл решения: [device_job.py](../device_job.py)
 
+По умолчанию код работает с hdfs, чтобы перейти на локальную файловую
+систему, нужно раскомментировать строчку 22 и закомментировать строчку 25
+
 # Подготовка
 
 ```bash
@@ -32,6 +35,7 @@ bash run_producer_and_consumer.sh
 # Чекпоинт в hdfs
 
 Для этой части задания docker compose нужно запускать с hdfs:
+
 ```bash
 docker compose --file docker-compose_hdfs.yaml up
 ```
