@@ -1,4 +1,6 @@
-# Зауск
+Основной файл решения: [device_job.py](device_job.py)
+
+# Подготовка
 
 ```bash
 docker compose build
